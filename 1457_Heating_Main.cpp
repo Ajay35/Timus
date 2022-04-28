@@ -19,23 +19,31 @@
 #define rep(i,a,b)  for(int i=a;i<b;i++)
 using namespace std;
 
+double get_mean(vector<double>& p)
+{
+    double s = (double) sz(p);
+    double d = 0;
+    rep(i, 0, sz(p))
+    {
+        d += (p[i] * p[i]);
+    }
+    return d / s;
+}
+
 void solve()
 {
     int n;
     cin >> n;
-    vi a(n);
+    vector<double> p(n);
+    double l = 0.0;
+
     rep(i, 0, n)
     {
-        cin >> a[i];
+        cin >> p[i];
+        l += p[i];
     }
-    int g = (n + 1) / 2;
-    int ans = 0;
-    sort(all(a));
-    rep(i, 0, g)
-    {
-        ans += (a[i] + 1) / 2;
-    }
-    cout << ans << endl;
+
+    cout << fixed << setprecision(6) << (l / (double)n) << endl;
 }
 
 signed main()

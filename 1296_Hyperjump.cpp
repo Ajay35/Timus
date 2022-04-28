@@ -23,19 +23,17 @@ void solve()
 {
     int n;
     cin >> n;
-    vi a(n);
+    ll sum = 0, ans = LLONG_MIN;
     rep(i, 0, n)
     {
-        cin >> a[i];
+        int p;
+        cin >> p;
+        sum += p;
+        ans = max(ans, sum);
+        sum = max(sum, 0ll);
     }
-    int g = (n + 1) / 2;
-    int ans = 0;
-    sort(all(a));
-    rep(i, 0, g)
-    {
-        ans += (a[i] + 1) / 2;
-    }
-    cout << ans << endl;
+
+    cout << max(ans, 0ll) << endl;
 }
 
 signed main()

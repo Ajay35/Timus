@@ -21,22 +21,24 @@ using namespace std;
 
 void solve()
 {
-    int n;
+    int n, k = 0;
     cin >> n;
-    vi a(n);
-    rep(i, 0, n)
+
+    string s;
+    cin >> s;
+    k = sz(s);
+
+    int ans = 1;
+
+    while (n > 0)
     {
-        cin >> a[i];
+        ans *= n;
+        n -= k;
     }
-    int g = (n + 1) / 2;
-    int ans = 0;
-    sort(all(a));
-    rep(i, 0, g)
-    {
-        ans += (a[i] + 1) / 2;
-    }
+
     cout << ans << endl;
 }
+
 
 signed main()
 {

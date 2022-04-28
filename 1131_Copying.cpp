@@ -21,20 +21,21 @@ using namespace std;
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vi a(n);
-    rep(i, 0, n)
+    int n, k;
+    cin >> n >> k;
+    int c = 0, ans = 0, kk = 1;
+
+    while (n - (kk + kk) > 0 and kk <= k)
     {
-        cin >> a[i];
+        ans++;
+        kk += kk;
     }
-    int g = (n + 1) / 2;
-    int ans = 0;
-    sort(all(a));
-    rep(i, 0, g)
+
+    if (n - kk > 0)
     {
-        ans += (a[i] + 1) / 2;
+        ans += ((n - kk) / k) + (((n - kk) % k) > 0);
     }
+
     cout << ans << endl;
 }
 

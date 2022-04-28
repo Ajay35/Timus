@@ -21,21 +21,33 @@ using namespace std;
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vi a(n);
-    rep(i, 0, n)
+    int n, k;
+    cin >> n >> k;
+    vi groups;
+    int g = n / k;
+    n -= (g * k);
+    vi a(k, g);
+    int ind = 0;
+
+    while (n--)
     {
-        cin >> a[i];
+        a[ind++]++;
+        ind = ind % k;
     }
-    int g = (n + 1) / 2;
-    int ans = 0;
-    sort(all(a));
-    rep(i, 0, g)
+
+    int sum = accumulate(all(a), 0);
+    ll ans = 0;
+
+    rep(i, 0, k)
     {
-        ans += (a[i] + 1) / 2;
+        ans += a[i] * (sum - a[i]);
+        sum -= a[i];
     }
+
+
+
     cout << ans << endl;
+
 }
 
 signed main()
@@ -44,7 +56,7 @@ signed main()
     cin.tie(0);
     cout.tie(0);
     int t = 1;
-    // cin>>t;
+    cin >> t;
     while (t--)
     {
         solve();

@@ -21,21 +21,34 @@ using namespace std;
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vi a(n);
-    rep(i, 0, n)
+    int a, b, c;
+    cin >> a >> b >> c;
+
+    if (a + b < c)
     {
-        cin >> a[i];
+        cout << "Impossible" << endl;
     }
-    int g = (n + 1) / 2;
-    int ans = 0;
-    sort(all(a));
-    rep(i, 0, g)
+    else
     {
-        ans += (a[i] + 1) / 2;
+        int p, q;
+        if (a < b)
+        {
+            p = min(c, b);
+            c -= min(c, b);
+            q = min(c, a);
+            cout << q << " " << p << endl;
+        }
+        else
+        {
+            p = min(c, a);
+            c -= min(c, a);
+            q = min(c, b);
+            cout << p << " " << q << endl;
+        }
+
+
+
     }
-    cout << ans << endl;
 }
 
 signed main()

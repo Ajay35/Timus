@@ -19,33 +19,12 @@
 #define rep(i,a,b)  for(int i=a;i<b;i++)
 using namespace std;
 
-class player
-{
-public:
-    int ind, id, score;
-
-};
-
 void solve()
 {
-    int n;
+    ll n;
     cin >> n;
-    vector<player> p(n);
-    rep(i, 0, n)
-    {
-        int id, score;
-        cin >> id >> score;
-        player.pb({i + 1, id, score});
-    }
-    sort(all(player), [&](player & a, player & b) {
-        if (a.score == b.score)
-            return a.ind < b.ind;
-        return a.score < b.score;
-    });
-    rep(i, 0, n)
-    {
-        cout << p[i].id << " " << p[i].score << endl;
-    }
+    ll ans = n * (n + 1) / 2  * (n + 2);
+    cout << ans << endl;
 }
 
 signed main()
