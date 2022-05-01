@@ -21,7 +21,26 @@ using namespace std;
 
 void solve()
 {
-    
+    string s;
+    cin >> s;
+    int rem = 0;
+
+    rep(i, 0, sz(s))
+    {
+        rem = rem + (s[i] - '0');
+        rem = rem % 3;
+    }
+
+    if (rem == 0)
+    {
+        cout << 2 << endl;
+    }
+    else
+    {
+        cout << 1 << endl;
+        cout << rem << endl;
+    }
+
 }
 
 signed main()

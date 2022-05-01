@@ -21,27 +21,25 @@ using namespace std;
 
 void solve()
 {
-    int n;
-    cin >> n;
-    priority_queue<double> pq;
+    int n, m;
+    cin >> n >> m;
+    vi a(n);
 
     rep(i, 0, n)
     {
-        double d;
-        cin >> d;
-        pq.push(d);
+        cin >> a[i];
     }
-    while (sz(pq) > 1)
-    {
-        double m1 = pq.top();
-        pq.pop();
-        double m2 = pq.top();
-        pq.pop();
-        double new_m = 2.0 * sqrt(m1 * m2);
-        pq.push(new_m);
-    }
+    int ind = 0;
 
-    cout << fixed << setprecision(2) << pq.top() << endl;
+    m = m % n;
+
+    int nums = 10;
+
+    while (nums--)
+    {
+        cout << a[m++];;
+        m = m % n;
+    }
 }
 
 signed main()

@@ -23,25 +23,51 @@ void solve()
 {
     int n;
     cin >> n;
-    priority_queue<double> pq;
+    map <string, vector <string>> map1;
 
-    rep(i, 0, n)
-    {
-        double d;
-        cin >> d;
-        pq.push(d);
-    }
-    while (sz(pq) > 1)
-    {
-        double m1 = pq.top();
-        pq.pop();
-        double m2 = pq.top();
-        pq.pop();
-        double new_m = 2.0 * sqrt(m1 * m2);
-        pq.push(new_m);
+    string u, v;
+    getline(cin, u);
+    for (int i = 0; i < n; i++) {
+        getline(cin, u);
+        getline(cin, v);
+        map1[v].push_back(u);
     }
 
-    cout << fixed << setprecision(2) << pq.top() << endl;
+    cout << "Slytherin:\n";
+
+    for (auto el : map1["Slytherin"]) 
+    {
+        cout << el << "\n";
+    }
+
+    cout << "\n";
+
+    cout << "Hufflepuff:\n";
+
+    for (auto el : map1["Hufflepuff"]) 
+    {
+        cout << el << "\n";
+    }
+
+    cout << "\n";
+
+    cout << "Gryffindor:\n";
+
+    for (auto el : map1["Gryffindor"]) 
+    {
+        cout << el << "\n";
+    }
+
+    cout << "\n";
+    cout << "Ravenclaw:\n";
+
+    for (auto el : map1["Ravenclaw"]) 
+    {
+        cout << el << "\n";
+    }
+    
+    cout << "\n";
+
 }
 
 signed main()

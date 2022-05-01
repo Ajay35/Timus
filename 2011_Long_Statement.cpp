@@ -19,29 +19,44 @@
 #define rep(i,a,b)  for(int i=a;i<b;i++)
 using namespace std;
 
+ll ncr(int n, int k)
+{
+    vector<vector<ll>> dp(n + 1, vector<ll>(k + 1));
+
+    for (int i = 0; i <= n; i++)
+    {
+        for (int j = 0; j <= min(i, k); j++)
+        {
+            if (j == 0 || j == i)
+                dp[i][j] = 1;
+            else
+                dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j];
+        }
+    }
+
+    return dp[n][k];
+}
+
 void solve()
 {
-    int n;
+    int n, i, j;
     cin >> n;
-    priority_queue<double> pq;
+    int ar[n];
+    for (i = 0; i < n; ++i)
+        cin >> ar[i];
+    sort(ar, ar + n);
 
-    rep(i, 0, n)
+    for (i = 0; i < 5; ++i)
     {
-        double d;
-        cin >> d;
-        pq.push(d);
+        if (next_permutation(ar, ar + n))
+            ;
+        else
+            break;
     }
-    while (sz(pq) > 1)
-    {
-        double m1 = pq.top();
-        pq.pop();
-        double m2 = pq.top();
-        pq.pop();
-        double new_m = 2.0 * sqrt(m1 * m2);
-        pq.push(new_m);
-    }
-
-    cout << fixed << setprecision(2) << pq.top() << endl;
+    if (i >= 5)
+        cout << "Yes" << endl;
+    else
+        cout << "No" << endl;
 }
 
 signed main()
