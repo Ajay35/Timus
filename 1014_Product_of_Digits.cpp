@@ -19,67 +19,49 @@
 #define rep(i,a,b)  for(int i=a;i<b;i++)
 using namespace std;
 
-int ctoi(char c)
-{
-    if (c >= '0' && c <= '9')
-        return c - '0';
-    else
-        return c - 'A' + 10;
-}
-
-
-int getRemainder(std::string s, int n)
-{
-    int c = 1;
-    int r = 0;
-
-    for (int i = s.size() - 1; i >= 0; i--)
-    {
-        r = (r + ctoi(s[i]) * c) % (n - 1);
-        c = (c * n) % (n - 1);
-    }
-    return r;
-}
-
-int maxChar(string s)
-{
-    int max = 0;
-
-    for (char c : s)
-    {
-        max = ctoi(c) > max ? ctoi(c) : max;
-    }
-    return max;
-}
-
 void solve()
 {
-    string s;
-    cin >> s;
-    int min = maxChar(s);
+    int n;
+    cin >> n;
 
-    if (min == 0)
+    if (n == 0)
     {
-        cout << "2" << endl;
+        cout << 10 << endl;
         return;
     }
 
-    for (int i = min + 1; i <= 36; i++)
+    if (n == 1)
     {
-        if (getRemainder(s, i) == 0)
+        cout << n << endl;
+        return;
+    }
+
+
+    // prime check
+    vi digits;
+
+    for (int i = 9; i >= 2; i--)
+    {
+        while (n % i == 0)
         {
-            cout << i << endl;
-            return;
+            digits.pb(i);
+            n = n / i;
         }
     }
 
-    cout << "No solution." << endl;
+    if (n > 1)
+    {
+        cout << -1 << endl;
+    }
+    else
+    {
+        for (int i = sz(digits) - 1; i >= 0; i--)
+        {
+            cout << digits[i];
+        }
+    }
+
 }
-
-
-
-
-
 
 signed main()
 {
