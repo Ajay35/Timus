@@ -19,37 +19,72 @@
 #define rep(i,a,b)  for(int i=a;i<b;i++)
 using namespace std;
 
+ll dp[10][82];
+int dp1[82];
+
+ll f(int p, int s)
+{
+    if (p > 9)
+    {
+        if (s == 0)
+        {
+            return 1;
+        }
+
+        return 0;
+    }
+
+    ll& ans = dp[p][s];
+
+    if (ans != -1)
+        return ans;
+    else
+        ans = 0;
+
+    for (int i = 0; i <= 9; i++)
+    {
+        if (i <= s)
+        {
+            ans += f(p + 1, s - i);
+        }
+    }
+
+    return ans;
+}
+
 void solve()
 {
     int s;
     cin >> s;
 
-    int ans = 0;
+    //memset(dp, -1, sizeof dp);
+    //ll ans = f(1, s);
 
-    ll dp[s + 1];
 
-    for(int i = 0; i <= s; i++)
+
+
+    dp1[0] = 1;
+
+    for (int i = 1; i <= 9; i++)
     {
-        dp[i] = 0;
-    }
-
-    dp[1] = 10;
-
-
-    
-    for(int j = s; j > 1; j--)
-    {
-        for(int k = 0; k < 10; k++)
+        for (int j = 9 * i; j >= 1; j--)
         {
-            if(s >= k)
+            for (int k = 1; k <= 9; k++)
             {
-                dp[j] += dp[j - k]; 
+
+                if (k > j)
+                {
+                    break;
+                }
+
+                dp1[j] += dp1[j - k];
             }
         }
     }
-    }
 
-    cout << dp[s] << endl;
+    dp1[1]++;
+
+    cout << dp1[s] << endl;
 }
 
 signed main()

@@ -14,27 +14,20 @@
 #define x           first
 #define y           second
 #define sz(x)       (int)x.size()
-#define endl        '\n'
+//#define endl        '\n'
 #define hell        1000000007
 #define rep(i,a,b)  for(int i=a;i<b;i++)
 using namespace std;
 
-int a[102];
-
+const int N = 2e5;
+bool a[N + 5];
+vi primes;
 
 void solve()
 {
-    int n, t, s;
-    cin >> n >> t >> s;
-    for (int i = 0; i < n; i++)
-    {
-        cin >> a[i];
-    }
-
-    for (int i = 0; i < n; i++)
-    {
-        cout << fixed << setprecision(6) << (double)((s + a[i] + t) / 2.0) << endl;
-    }
+    int n;
+    cin >> n;
+    cout << primes[n - 1] << endl;
 }
 
 signed main()
@@ -43,7 +36,36 @@ signed main()
     cin.tie(0);
     cout.tie(0);
     int t = 1;
-    // cin>>t;
+
+
+    for (int i = 2; i <= N; i++)
+    {
+        a[i] = true;
+    }
+
+
+    for (int i = 2; i * i <= N; i++)
+    {
+        if (a[i])
+        {
+            for (int j = i * i; j <= N; j += i)
+            {
+                a[j] = false;
+            }
+        }
+    }
+
+    for (int i = 2; i <= N; i++)
+    {
+        if (a[i])
+        {
+            primes.pb(i);
+        }
+    }
+
+
+    cin >> t;
+
     while (t--)
     {
         solve();
