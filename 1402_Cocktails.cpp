@@ -20,35 +20,14 @@
 using namespace std;
 
 
-string longDivision(string number, int divisor)
-{
-    string ans;
-    int idx = 0;
-    int temp = number[idx] - '0';
-    while (temp < divisor)
-        temp = temp * 10 + (number[++idx] - '0');
-
-    while (number.size() > idx) {
-        ans += (temp / divisor) + '0';
-
-        temp = (temp % divisor) * 10 + number[++idx] - '0';
-    }
-
-    if (ans.length() == 0)
-        return "0";
-
-    return ans;
-}
-
-
 string multiply(string num1, string num2)
 {
     int len1 = num1.size();
     int len2 = num2.size();
     if (len1 == 0 || len2 == 0)
         return "0";
-    vi result(len1 + len2, 0);
 
+    vector<int> result(len1 + len2, 0);
     int i_n1 = 0;
     int i_n2 = 0;
 
@@ -56,14 +35,17 @@ string multiply(string num1, string num2)
     {
         int carry = 0;
         int n1 = num1[i] - '0';
+
         i_n2 = 0;
 
         for (int j = len2 - 1; j >= 0; j--)
         {
             int n2 = num2[j] - '0';
+
             int sum = n1 * n2 + result[i_n1 + i_n2] + carry;
 
             carry = sum / 10;
+
             result[i_n1 + i_n2] = sum % 10;
 
             i_n2++;
@@ -79,7 +61,6 @@ string multiply(string num1, string num2)
     while (i >= 0 && result[i] == 0)
         i--;
 
-
     if (i == -1)
         return "0";
 
@@ -91,33 +72,59 @@ string multiply(string num1, string num2)
     return s;
 }
 
-string power(string xnum, string ynum)
+string add(string str1, string str2)
 {
-    string res = "1";
+    if (str1.length() > str2.length())
+        swap(str1, str2);
 
-    while (ynum != "0")
+    string str = "";
+
+    int n1 = str1.length(), n2 = str2.length();
+
+    reverse(str1.begin(), str1.end());
+    reverse(str2.begin(), str2.end());
+
+    int carry = 0;
+    for (int i = 0; i < n1; i++)
     {
-        if (((ynum.back() - '0') % 2) == 1)
-        {
-            res = multiply(res, xnum);
-        }
-
-        ynum = longDivision(ynum, 2);
-        xnum = multiply(xnum, xnum);
+        int sum = ((str1[i] - '0') + (str2[i] - '0') + carry);
+        str.push_back(sum % 10 + '0');
+        carry = sum / 10;
     }
 
-    return res;
+    for (int i = n1; i < n2; i++)
+    {
+        int sum = ((str2[i] - '0') + carry);
+        str.push_back(sum % 10 + '0');
+        carry = sum / 10;
+    }
+
+    if (carry)
+        str.push_back(carry + '0');
+
+    reverse(str.begin(), str.end());
+
+    return str;
 }
 
 void solve()
 {
-    int k;
-    cin >> k;
+    int n;
+    cin >> n;
 
-    string m = "36";
-    string knum = to_string(k - 1);
-    string xnum = "55";
-    cout << multiply(m, power(xnum, knum));
+    string dp[51];
+
+    dp[1] = "0";
+    dp[2] = "2";
+
+    rep(i, 3, n + 1)
+    {
+        string si = to_string(i);
+        string si1 = to_string(i - 1);
+        dp[i] = add(multiply(si , dp[i - 1]) , multiply(si , si1));
+    }
+
+    cout<<dp[n]<<endl;
 }
 
 signed main()
