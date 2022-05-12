@@ -21,30 +21,49 @@ using namespace std;
 
 void solve()
 {
-    int n;
+    int n, q;
     cin >> n;
-    vi ans;
 
-    while (n > 1)
+    unordered_map<int, vi> store;
+
+    rep(i, 1, n + 1)
     {
-        if (n & 1)
+        int p;
+        cin >> p;
+        store[p].pb(i);
+    }
+
+    cin >> q;
+
+    while (q--)
+    {
+        int l, r, v;
+        cin >> l >> r >> v;
+
+        if (store.find(v) != store.end())
         {
-            ans.pb(n / 2);
-            n -= (n / 2);   
+
+            int ind = lower_bound(all(store[v]), l) - begin(store[v]);
+
+            if (ind == sz(store[v]))
+            {
+                cout << 0;
+            }
+            else if (store[v][ind] <= r and store[v][ind] >= l)
+            {
+                cout << 1;
+            }
+            else
+            {
+                cout << 0;
+            }
         }
         else
         {
-            ans.pb(n / 2);
-            n = n / 2;
+            cout << 0;
         }
     }
 
-    cout << sz(ans) << endl;
-
-    rep(i, 0, sz(ans))
-    {
-        cout << ans[i] << " ";
-    }
 }
 
 signed main()

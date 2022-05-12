@@ -21,30 +21,15 @@ using namespace std;
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vi ans;
+    int l, k, h;
+    float min_t = 0.0, max_t = 0.0;
 
-    while (n > 1)
-    {
-        if (n & 1)
-        {
-            ans.pb(n / 2);
-            n -= (n / 2);   
-        }
-        else
-        {
-            ans.pb(n / 2);
-            n = n / 2;
-        }
-    }
-
-    cout << sz(ans) << endl;
-
-    rep(i, 0, sz(ans))
-    {
-        cout << ans[i] << " ";
-    }
+    cin >> l >> k >> h;
+    max_t = (l % k == 0) ? (l / k) : (l / k + 1);
+    max_t = max_t * h;
+    min_t = l / k * h;
+    cout << setiosflags(ios::fixed) << setprecision (6)
+         << min_t << ' ' << max_t << endl;
 }
 
 signed main()

@@ -21,30 +21,16 @@ using namespace std;
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vi ans;
+    int n, k;
+    cin >> n >> k;
 
-    while (n > 1)
+    if (n == 2)
     {
-        if (n & 1)
-        {
-            ans.pb(n / 2);
-            n -= (n / 2);   
-        }
-        else
-        {
-            ans.pb(n / 2);
-            n = n / 2;
-        }
+        cout << 0 << endl;
+        return;
     }
-
-    cout << sz(ans) << endl;
-
-    rep(i, 0, sz(ans))
-    {
-        cout << ans[i] << " ";
-    }
+    
+    cout << n - 2 - min(k, n - k + 1) << endl;
 }
 
 signed main()

@@ -19,31 +19,46 @@
 #define rep(i,a,b)  for(int i=a;i<b;i++)
 using namespace std;
 
-void solve()
-{
-    int n;
-    cin >> n;
-    vi ans;
 
-    while (n > 1)
+bool palindrome(string& s)
+{
+    int l = 0, r = sz(s) - 1;
+
+    while (l < r)
     {
-        if (n & 1)
-        {
-            ans.pb(n / 2);
-            n -= (n / 2);   
-        }
-        else
-        {
-            ans.pb(n / 2);
-            n = n / 2;
-        }
+        if (s[l] != s[r])
+            return false;
+        l++;
+        r--;
     }
 
-    cout << sz(ans) << endl;
+    return true;
+}
 
-    rep(i, 0, sz(ans))
+void solve()
+{
+    string s;
+    cin >> s;
+
+    if (sz(s) == 1)
     {
-        cout << ans[i] << " ";
+        cout << s << s << endl;
+        return;
+    }
+
+    for (int i = 1; i < sz(s); i++)
+    {
+        string sub = s.substr(i);
+
+        if (palindrome(sub))
+        {
+            string sub1 = s.substr(0, i);
+            cout << s.substr(0, i);
+            cout << sub;
+            reverse(all(sub1));
+            cout << sub1;
+            return;
+        }
     }
 }
 

@@ -19,31 +19,55 @@
 #define rep(i,a,b)  for(int i=a;i<b;i++)
 using namespace std;
 
+vector<vi> g;
+
+int inc[101];
+
 void solve()
 {
     int n;
     cin >> n;
-    vi ans;
 
-    while (n > 1)
+    g.resize(n + 1);
+
+    for (int i = 1; i <= n; i++)
     {
-        if (n & 1)
+        int p;
+
+        while (cin >> p)
         {
-            ans.pb(n / 2);
-            n -= (n / 2);   
-        }
-        else
-        {
-            ans.pb(n / 2);
-            n = n / 2;
+            if (p == 0)
+                break;
+
+            g[i].pb(p);
+            inc[p]++;
         }
     }
 
-    cout << sz(ans) << endl;
+    queue<int> que;
 
-    rep(i, 0, sz(ans))
+    rep(i, 1, n + 1)
     {
-        cout << ans[i] << " ";
+        if (inc[i] == 0)
+        {
+            que.push(i);
+        }
+    }
+
+    while (!que.empty())
+    {
+        int cur = que.front();
+        que.pop();
+
+        cout << cur << " ";
+
+        for (int v : g[cur])
+        {
+            if (--inc[v] == 0)
+            {
+                que.push(v);
+            }
+        }
     }
 }
 
