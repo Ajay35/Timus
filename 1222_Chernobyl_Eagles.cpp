@@ -115,26 +115,18 @@ void solve()
     cin >> n;
     int p = 0;
 
-    string dp[3001];
     string nums[3001];
 
-    for (int i = 0; i <= 3000; i++)
-        nums[i] = to_string(i);
+    string ans = "1";
 
-    dp[0] = "0";
-    dp[1] = "1";
-    dp[2] = "2";
-    dp[3] = "2";
 
-    for (int i = 4; i <= n; i++)
+    while (n - 3 > 1)
     {
-        for (int j = 1; j < i; j++)
-        {
-            dp[i] = max(dp[i], multiply(dp[j] , (multiply(nums[j] , nums[i - j]))));
-        }
+        ans = multiply(ans, "3");
+        n -= 3;
     }
 
-    cout << dp[n] << endl;
+    cout << multiply(ans, to_string(n)) << endl;
 }
 
 signed main()

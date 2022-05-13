@@ -19,66 +19,65 @@
 #define rep(i,a,b)  for(int i=a;i<b;i++)
 using namespace std;
 
+inline ll mod(const ll &a, const ll &b)
+{
+    return a - a / b * b;
+}
+
+
 void solve()
 {
     ll n;
-    cin>>n;
-
-    int rt = sqrt(n), psum = 0;
-    ll  curr = n;
-    bool ans = true;
-
-    for (int i = 2; i <= curr; ++i)
+    cin >> n;
+    if(n == 1) 
     {
-        while (curr % i == 0)
-        {
-            ++psum;
-            curr /= i;
-        }
+        cout << "No" << endl;
+    }
+    else
+    {
+        ll sum = 0;
+        bool f = true;
+        ll temp, now;
+        temp = (ll)((double)sqrt(n) + 1);
+        now = n;
 
-        if (psum > 20)
+        for(ll i = 2; i <= temp; i++)
         {
-            ans = false;
-            break;
-        }
-        else if (psum == 20 )
-        {
-            if (curr != 1)
-                ans = false;
-            break;
-        }
-        else if (psum == 19)
-        {
-            if ((i + 1) * (i + 1) > curr)
+            if(sum >= 20) break;
+            if(mod(now, i) == 0)
             {
-                if (i + 1 <= curr)
-                    break;
-                else
+                while(mod(now, i) == 0)
                 {
-                    ans = false;
-                    break;
+                    sum++;
+                    now /= i;
                 }
             }
+            if(sum >= 20) 
+                break;
+            if(sum == 19)
+            {
+                if(pow(i + 1, 2) > now)
+                {
+                    if(i + 1 <= now) break;
+                    else { f = false; break;}
+                }
+            }
+            
+            if((ll)pow(i + 1, 20 - sum) > now) 
+            {
+                f = false; break;
+            }
+
+        }
+        if(f && now != 1){
+            sum++;
         }
 
-        if (pow(i + 1, 20 - psum) > curr)
-        {
-            ans = false;
-            break;
-        }
-    }
 
-    if (ans and curr != 1)
-    {
-        ++psum;
+        if(!f) cout << "No" << endl;
+        else if(sum == 20) cout << "Yes" << endl;
+        else cout << "No" << endl;
     }
-
-    if (psum != 20)
-    {
-        ans = false;
-    }
-
-    puts(ans ? "Yes" : "No");
 }
 
 signed main()
