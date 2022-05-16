@@ -23,53 +23,35 @@ void solve()
 {
     int n;
     cin >> n;
-    set<pii> s;
+    vector<int> v;
+    long long sum = 0;
 
-    rep(i, 0, n)
+    for (int i = 0; i < n; i++) 
     {
-        int p;
-        cin >> p;
-        s.insert({i + 1, p});
+        int h;
+        cin >> h;
+        sum += h;
+        v.push_back(h);
     }
+    long double drink = 1.0 * sum / (n + 1);
+    long double s = 0;
+    vector<long double> more;
 
-    vi cnt(n + 1);
-
-    while (sz(s) > 1)
+    for (int i = 0; i < n; i++) 
     {
-        pii cur = *s.begin();
-        s.erase(s.begin());
-
-        while (sz(s) > 0)
+        if (v[i] - drink > 0 - 1e-9) 
         {
-            pii nxt = *s.begin();
-
-            cnt[cur.x]++;
-            cnt[nxt.x]++;
-
-            if (nxt.y < cur.y)
-            {
-                break;
-            }
-            else
-            {
-                s.erase(s.begin());
-            }
-        }
+            more.push_back(v[i] - drink);
+            s += more[i];
+        } 
+        else
+            more.push_back(0);
     }
 
-    int ans = -1;
-    int mx = -1;
-
-    rep(i, 1, n + 1)
+    for (int i = 0; i < n; i++) 
     {
-        if (mx < cnt[i])
-        {
-            mx = cnt[i];
-            ans = i;
-        }
+        cout << int(more[i] * 100 / s) << ' ';
     }
-
-    cout << ans << endl;
 }
 
 signed main()

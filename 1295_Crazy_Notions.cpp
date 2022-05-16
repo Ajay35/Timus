@@ -21,55 +21,34 @@ using namespace std;
 
 void solve()
 {
-    int n;
+    int n, hold_n;
+
+    int r1, r2, r3, r4;
+
     cin >> n;
-    set<pii> s;
+    int zeros = 0;
 
-    rep(i, 0, n)
+    for (int i = 10; true; i *= 10)
     {
-        int p;
-        cin >> p;
-        s.insert({i + 1, p});
-    }
+        r1 = r2 = r3 = r4 = 1;
+        hold_n = n;
 
-    vi cnt(n + 1);
-
-    while (sz(s) > 1)
-    {
-        pii cur = *s.begin();
-        s.erase(s.begin());
-
-        while (sz(s) > 0)
+        while (hold_n--)
         {
-            pii nxt = *s.begin();
-
-            cnt[cur.x]++;
-            cnt[nxt.x]++;
-
-            if (nxt.y < cur.y)
-            {
-                break;
-            }
-            else
-            {
-                s.erase(s.begin());
-            }
+            r2 = (r2 * 2) % i;
+            r3 = (r3 * 3) % i;
+            r4 = (r4 * 4) % i;
         }
+
+        if ( (r1 + r2 + r3 + r4) % i == 0 )
+            ++zeros;
+        else
+            break;
     }
 
-    int ans = -1;
-    int mx = -1;
+    cout << zeros << endl;
 
-    rep(i, 1, n + 1)
-    {
-        if (mx < cnt[i])
-        {
-            mx = cnt[i];
-            ans = i;
-        }
-    }
 
-    cout << ans << endl;
 }
 
 signed main()

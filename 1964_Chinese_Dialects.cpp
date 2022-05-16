@@ -21,55 +21,24 @@ using namespace std;
 
 void solve()
 {
-    int n;
-    cin >> n;
-    set<pii> s;
+    ll n, a, minNum, k;
 
-    rep(i, 0, n)
+    cin >> n >> k;
+    minNum = n;
+
+    for (int i = 0; i < k; i ++)
     {
-        int p;
-        cin >> p;
-        s.insert({i + 1, p});
-    }
+        cin >> a;
+        minNum = min (minNum + a - n, minNum);
 
-    vi cnt(n + 1);
-
-    while (sz(s) > 1)
-    {
-        pii cur = *s.begin();
-        s.erase(s.begin());
-
-        while (sz(s) > 0)
+        if (minNum <= 0)
         {
-            pii nxt = *s.begin();
-
-            cnt[cur.x]++;
-            cnt[nxt.x]++;
-
-            if (nxt.y < cur.y)
-            {
-                break;
-            }
-            else
-            {
-                s.erase(s.begin());
-            }
+            minNum = 0;
+            break;
         }
     }
-
-    int ans = -1;
-    int mx = -1;
-
-    rep(i, 1, n + 1)
-    {
-        if (mx < cnt[i])
-        {
-            mx = cnt[i];
-            ans = i;
-        }
-    }
-
-    cout << ans << endl;
+    
+    cout << minNum << endl;
 }
 
 signed main()

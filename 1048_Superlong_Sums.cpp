@@ -1,4 +1,3 @@
-
 /* Ajay Jadhav */
 
 #include <bits/stdc++.h>
@@ -19,57 +18,28 @@
 #define rep(i,a,b)  for(int i=a;i<b;i++)
 using namespace std;
 
+
+
 void solve()
 {
-    int n;
+    char a[1000000];
+    int n, m;
     cin >> n;
-    set<pii> s;
 
-    rep(i, 0, n)
+    for (int i = 0, x = 0, y = 0; i < n; ++i)
     {
-        int p;
-        cin >> p;
-        s.insert({i + 1, p});
+        cin >> x >> y;
+        a[i] = x + y;
     }
 
-    vi cnt(n + 1);
-
-    while (sz(s) > 1)
+    for (int i = n - 1; i > 0; --i)
     {
-        pii cur = *s.begin();
-        s.erase(s.begin());
-
-        while (sz(s) > 0)
-        {
-            pii nxt = *s.begin();
-
-            cnt[cur.x]++;
-            cnt[nxt.x]++;
-
-            if (nxt.y < cur.y)
-            {
-                break;
-            }
-            else
-            {
-                s.erase(s.begin());
-            }
-        }
+        a[i - 1] += a[i] / 10;
+        a[i] %= 10;
     }
 
-    int ans = -1;
-    int mx = -1;
-
-    rep(i, 1, n + 1)
-    {
-        if (mx < cnt[i])
-        {
-            mx = cnt[i];
-            ans = i;
-        }
-    }
-
-    cout << ans << endl;
+    for (int i = 0; i < n; ++i)
+        cout << (char)(a[i] + '0');
 }
 
 signed main()

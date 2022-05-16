@@ -23,53 +23,27 @@ void solve()
 {
     int n;
     cin >> n;
-    set<pii> s;
+    vi a(n);
 
     rep(i, 0, n)
     {
-        int p;
-        cin >> p;
-        s.insert({i + 1, p});
+        cin >> a[i];
     }
 
-    vi cnt(n + 1);
+    string s;
+    cin >> s;
 
-    while (sz(s) > 1)
+    sort(all(a));
+
+    int q;
+    cin >> q;
+
+    while (q--)
     {
-        pii cur = *s.begin();
-        s.erase(s.begin());
-
-        while (sz(s) > 0)
-        {
-            pii nxt = *s.begin();
-
-            cnt[cur.x]++;
-            cnt[nxt.x]++;
-
-            if (nxt.y < cur.y)
-            {
-                break;
-            }
-            else
-            {
-                s.erase(s.begin());
-            }
-        }
+        int query;
+        cin >> query;
+        cout << a[query - 1] << endl;
     }
-
-    int ans = -1;
-    int mx = -1;
-
-    rep(i, 1, n + 1)
-    {
-        if (mx < cnt[i])
-        {
-            mx = cnt[i];
-            ans = i;
-        }
-    }
-
-    cout << ans << endl;
 }
 
 signed main()
