@@ -1,3 +1,4 @@
+
 /* Ajay Jadhav */
 
 #include <bits/stdc++.h>
@@ -18,27 +19,51 @@
 #define rep(i,a,b)  for(int i=a;i<b;i++)
 using namespace std;
 
+bool valid(vector<char>& s, int& ans)
+{
+    int cnt = 0;
+
+    for (int i = 0; i + 1 < sz(s); i++)
+    {
+        if (s[i] == '>' and s[i + 1] == '<')
+        {
+            s[i] = '<';
+            s[i + 1] = '>';
+            i++;
+            cnt++;
+        }
+    }
+    ans += cnt;
+    return cnt == 0;
+}
 
 void solve()
 {
-    char a[1000000];
-    int n, m;
+    int ans = 0;
+    int n;
     cin >> n;
-
-    for (int i = 0, x = 0, y = 0; i < n; ++i)
+    vector<char> s(n);
+    rep(i, 0, n)
     {
-        cin >> x >> y;
-        a[i] = x + y;
+        char ch;
+        cin >> ch;
+        s[i] = ch;
     }
 
-    for (int i = n - 1; i > 0; --i)
+
+    int counter = 0;
+    int sum = 0;
+
+    rep(i, 0, n)
     {
-        a[i - 1] += a[i] / 10;
-        a[i] %= 10;
+        if (s[i] == '<')
+        {
+            sum += (i - counter);
+            counter++;
+        }
     }
 
-    for (int i = 0; i < n; ++i)
-        cout << (char)(a[i] + '0');
+    cout << sum << endl;
 }
 
 signed main()

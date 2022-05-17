@@ -1,3 +1,4 @@
+
 /* Ajay Jadhav */
 
 #include <bits/stdc++.h>
@@ -18,27 +19,24 @@
 #define rep(i,a,b)  for(int i=a;i<b;i++)
 using namespace std;
 
-
 void solve()
 {
-    char a[1000000];
-    int n, m;
-    cin >> n;
+    int n;
+    int total_elements;
+    std::cin >> n >> total_elements;
 
-    for (int i = 0, x = 0, y = 0; i < n; ++i)
+    int current_d;
+
+    rep(i, 0, n)
     {
-        cin >> x >> y;
-        a[i] = x + y;
+        cin >> current_d;
+
+        if (i > 0)
+            std::cout << " ";
+        cout << total_elements / current_d - 1;
+        total_elements = current_d;
     }
 
-    for (int i = n - 1; i > 0; --i)
-    {
-        a[i - 1] += a[i] / 10;
-        a[i] %= 10;
-    }
-
-    for (int i = 0; i < n; ++i)
-        cout << (char)(a[i] + '0');
 }
 
 signed main()
